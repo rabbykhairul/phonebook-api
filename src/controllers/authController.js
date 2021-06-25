@@ -1,15 +1,23 @@
 const userService = require("../services/userService");
 
 const hanldeUserRegistration = async (req, res) => {
-  const savedSuccessfully = await userService.saveNewUser(req.body);
+  try {
+    const result = await userService.saveNewUser(req.body);
 
-  if (savedSuccessfully) {
-    return res.json({ status: 201, message: "User created successfully" });
-  } else
-    return res.json({
-      status: 500,
-      message: "Failed to create user. It's on our side.",
-    });
+    if (result.savedSuccessfully) {
+      return res.status(201).json({ status: 201, message: result.message });
+    } else
+      return res.status(400).json({
+        status: 400,
+        message: result.message,
+      });
+  } catch (err) {
+    console.log("\n---");
+    console.log("Error while saving new user. Error: ", err);
+    console.log("---\n");
+
+    res.status(500).json({ status: 500, message: "Server error." });
+  }
 };
 
 module.exports = {
