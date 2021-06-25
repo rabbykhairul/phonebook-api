@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const helper = require("../utils/helper");
 
 const saveNewUser = async (userDetails) => {
   const IsEmailAlreadyInUse = await doesUserExistsByEmail(userDetails.email);
@@ -15,6 +16,7 @@ const saveNewUser = async (userDetails) => {
     };
   } else {
     const newUser = new User(userDetails);
+    newUser.password = await helper.getHashedPassword(userDetails.password);
     await newUser.save();
 
     console.log("\n----");
