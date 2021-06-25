@@ -10,4 +10,10 @@ const checkPassword = async (hashedPassword, password) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
-module.exports = { getHashedPassword, checkPassword };
+const getToken = (user) => {
+  delete user.password;
+  const token = jwt.sign(user, process.env.JWT_PRIVATE_KEY);
+  return `Bearer ${token}`;
+};
+
+module.exports = { getHashedPassword, checkPassword, getToken };
