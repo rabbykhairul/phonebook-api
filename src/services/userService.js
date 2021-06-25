@@ -36,4 +36,8 @@ const doesUserExistsByEmail = async (email) => {
   else false;
 };
 
-module.exports = { saveNewUser };
+const getUserByEmail = async (email) => {
+  return await User.findOne({ email });
+};
+
+module.exports = { saveNewUser, getUserByEmail };
