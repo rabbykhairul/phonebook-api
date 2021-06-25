@@ -30,9 +30,10 @@ const handleUserLogin = async (req, res) => {
         user.password,
         password
       );
-      if (isCorrectPassword)
-        res.status(200).json({ message: "password matched...", status: 200 });
-      else
+      if (isCorrectPassword) {
+        const token = helper.getToken({ ...user });
+        res.status(200).json({ token, status: 200 });
+      } else
         res
           .status(400)
           .json({ message: "password is incorrect...", status: 400 });
