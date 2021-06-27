@@ -26,12 +26,13 @@ const handleUserLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await userService.getUserByEmail(email);
     if (user) {
+      const { _id: id, firstName, lastName, password: userPassword } = user;
       const isCorrectPassword = await helper.checkPassword(
-        user.password,
+        userPassword,
         password
       );
       if (isCorrectPassword) {
-        const token = helper.getToken({ ...user });
+        const token = helper.getToken({ id, firstName, lastName });
         res.status(200).json({ token, status: 200 });
       } else
         res
