@@ -19,4 +19,20 @@ const getToken = (user) => {
   return `Bearer ${token}`;
 };
 
-module.exports = { getHashedPassword, checkPassword, getToken };
+const validateToken = (token) => {
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+    console.log("\n---");
+    console.log("decodedToken: ", decodedToken);
+    console.log("---\n");
+    return decodedToken;
+  } catch (err) {
+    console.log("\n---");
+    console.log("error in token validation");
+    console.log("err: ", err);
+    console.log("---\n");
+    return null;
+  }
+};
+
+module.exports = { getHashedPassword, checkPassword, getToken, validateToken };
