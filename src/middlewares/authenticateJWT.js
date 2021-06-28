@@ -5,6 +5,7 @@ const authenticateJWT = (req, res, next) => {
   const decodedToken = helper.validateToken(bearerToken);
 
   if (decodedToken) {
+    req.user = decodedToken;
     next();
   } else {
     console.log("\n---");
