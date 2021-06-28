@@ -9,4 +9,8 @@ const contactSchema = new mongoose.Schema({
   workPhone: { type: String, min: 1 },
 });
 
+const createContactModel = (userId) => {
+  return mongoose.model(`${userId}-contacts`, contactSchema);
+};
 
+module.exports = createContactModel;
