@@ -10,5 +10,6 @@ router.post("/", [authenticateJWT, controller.addNewContact]);
 
 router.put("/:id", [authenticateJWT, controller.editContact]);
 
+router.delete("/:id", [authenticateJWT, controller.deleteContact]);
 
 module.exports = router;
