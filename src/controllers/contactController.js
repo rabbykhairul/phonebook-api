@@ -32,6 +32,9 @@ const addNewContact = async (req, res) => {
   }
 };
 
+const editContact = async (req, res) => {};
+
 module.exports = {
   addNewContact,
+  editContact,
 };
