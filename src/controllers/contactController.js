@@ -69,8 +69,37 @@ const editContact = async (req, res) => {
   console.log("---\n");
 };
 
+const deleteContact = async (req, res) => {
+  try {
+    const Contact = createContactModel(req.user.id);
+    await Contact.findByIdAndDelete(req.params.id);
+
+    console.log("\n---");
+    console.log("delete contact req for user id: ", req.user.id);
+    console.log("id of contact to delete: ", req.params.id);
+    console.log("contact deleted successfully...");
+    console.log("---\n");
+
+    res
+      .status(200)
+      .json({
+        message: "contact deleted successfully",
+        deletedContactId: req.params.id,
+        status: 200,
+      });
+  } catch (err) {
+    console.log("\n---");
+    console.log("error on delete contact req...");
+    console.log("error: ", err);
+    console.log("---\n");
+
+    res.status(500).json({ message: "Error on delete contact", status: 500 });
+  }
+};
+
 module.exports = {
   getContacts,
   addNewContact,
   editContact,
+  deleteContact,
 };
