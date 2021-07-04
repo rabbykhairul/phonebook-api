@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/", [authenticateJWT, controller.addNewContact]);
 
-router.put("/", [authenticateJWT, controller.editContact]);
+router.put("/:id", [authenticateJWT, controller.editContact]);
 
 module.exports = router;
