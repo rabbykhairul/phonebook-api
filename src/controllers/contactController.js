@@ -32,7 +32,24 @@ const addNewContact = async (req, res) => {
   }
 };
 
-const editContact = async (req, res) => {};
+const editContact = async (req, res) => {
+  const { id } = req.body;
+
+  if (id) {
+  } else {
+    console.log("\n---");
+    console.log("update contact request...");
+    console.log("can't update contact, id is missing in the req payload");
+    console.log("---");
+    console.log("req payload: ", req.body);
+    console.log("---\n");
+
+    res.status(400).json({
+      message: "can't update, id missing in the req payload",
+      status: 400,
+    });
+  }
+};
 
 module.exports = {
   addNewContact,
