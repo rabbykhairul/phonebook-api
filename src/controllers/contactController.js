@@ -1,5 +1,22 @@
 const createContactModel = require("../models/contact");
 
+const getContacts = async (req, res) => {
+  try {
+    const Contact = createContactModel(req.user.id);
+    const allContacts = await Contact.find({});
+
+    res.status(200).json({ contacts: allContacts, status: 200 });
+  } catch (err) {
+    console.log("error happended while getting all contacts...");
+    console.log("error: ", err);
+    console.log("---\n");
+
+    res
+      .status(500)
+      .json({ message: "Error while retrieving contacts", status: 200 });
+  }
+};
+
 const addNewContact = async (req, res) => {
   console.log("\n---");
   console.log("new contact to add: ", req.body);
@@ -53,6 +70,7 @@ const editContact = async (req, res) => {
 };
 
 module.exports = {
+  getContacts,
   addNewContact,
   editContact,
 };
